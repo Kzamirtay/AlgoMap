@@ -1,47 +1,53 @@
 package arrays_and_strings
 
 func spiralOrder(matrix [][]int) []int {
-	var answer []int
-	rowI, colI := 0, 0
-	up := 0
-	right := len(matrix[0])
-	down := len(matrix)
-	left := 0
+	m, n := len(matrix), len(matrix[0])
+	var ans []int
+	i, j := 0, 0
 
-	for {
-		answer = append(answer, matrix[rowI][colI])
-		if rowI == up {
-			if colI == right-1 {
-				// Убираем Верх
-				up++
-				rowI++
-			} else {
-				colI++
+	UP, RIGHT, DOWN, LEFT := 0, 1, 2, 3
+
+	direction := RIGHT
+
+	UpWall := 0
+	RightWall := n
+	DownWall := m
+	LeftWall := -1
+	for len(ans) != m*n {
+		if direction == RIGHT {
+			for j < RightWall {
+				ans = append(ans, matrix[i][j])
+				j++
 			}
-		} else if colI == right-1 {
-			if rowI == down-1 {
-				// Убираем Право
-				right--
-				colI--
-			} else {
-				rowI++
+			i, j = i+1, j-1
+			RightWall--
+			direction = DOWN
+		} else if direction == DOWN {
+			for i < DownWall {
+				ans = append(ans, matrix[i][j])
+				i++
 			}
-		} else if rowI == down {
-			if colI == left {
-				// Убираем Низ
-				down--
-			} else {
-				colI--
+			i, j = i-1, j-1
+			DownWall--
+			direction = LEFT
+		} else if direction == LEFT {
+			for j > LeftWall {
+				ans = append(ans, matrix[i][j])
+				j--
 			}
+			i, j = i-1, j+1
+			LeftWall++
+			direction = UP
+		} else {
+			for i > UpWall {
+				ans = append(ans, matrix[i][j])
+				i--
+			}
+			i, j = i+1, j+1
+			UpWall++
+			direction = RIGHT
 		}
-		//if colI == left {
-		//	if rowI == up {
-		//		// Убираем Низ
-		//		left++
-		//	} else {
-		//		rowI++
-		//	}
-		//}
 	}
-	return answer
+
+	return ans
 }
