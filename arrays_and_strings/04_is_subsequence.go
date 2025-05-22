@@ -1,26 +1,14 @@
 package arrays_and_strings
 
 func isSubsequence(s string, t string) bool {
-	var wordStart int
+	i, j := 0, 0
 
-	for _, sLet := range s {
-		t = t[wordStart:]
-
-		index, exists := letExists(sLet, t)
-		if !exists {
-			return false
+	for i < len(s) && j < len(t) {
+		if s[i] == t[j] {
+			i++
 		}
-
-		wordStart = index + 1
+		j++
 	}
-	return true
-}
 
-func letExists(let int32, word string) (int, bool) {
-	for index, wLet := range word {
-		if let == wLet {
-			return index, true
-		}
-	}
-	return 0, false
+	return i == len(s)
 }
