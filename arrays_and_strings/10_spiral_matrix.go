@@ -2,33 +2,30 @@ package arrays_and_strings
 
 func spiralOrder(matrix [][]int) []int {
 	var answer []int
-	rowLen := len(matrix)
-	colLen := len(matrix[0])
-	rowLastI := rowLen - 1
-	colLastI := colLen - 1
 	rowI, colI := 0, 0
-	rmCol, rmRow := true, true
+	up := 0
+	right := len(matrix[0])
+	down := len(matrix)
+	left := 0
 
-	for rowI <= rowLen && colI <= colLen {
+	for {
 		answer = append(answer, matrix[rowI][colI])
-		if rowLastI == rowI {
-			if rmCol {
-				colLastI--
-				rmCol = false
-				rmRow = true
-			}
-			colI--
+		colI++
+		if rowI == up && colI == right {
+			// Убираем Верх
+			up++
 		}
-		if colLastI == colI {
-			if rmRow {
-				rowLastI--
-				rmRow = false
-				rmCol = true
-			}
-			rowI++
+		if rowI == down && colI == right {
+			// Убираем Право
+			right--
 		}
-		if colLastI > colI {
-			colI++
+		if rowI == down && colI == left {
+			// Убираем Низ
+			down--
+		}
+		if rowI == up && colI == left {
+			// Убираем Низ
+			left++
 		}
 	}
 	return answer
