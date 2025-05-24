@@ -1,17 +1,17 @@
 package arrays_and_strings
 
-import (
-	"math"
-)
-
 func maxProfit(prices []int) int {
-	minPrice := math.MaxInt32
-	maxProfit := 0
+	var profit int
+	minP := prices[0]
 
-	for _, currentPrice := range prices {
-		minPrice = min(currentPrice, minPrice)
-		maxProfit = max(maxProfit, currentPrice-minPrice)
+	for _, price := range prices {
+		if minP > price {
+			minP = price
+		}
+		if (price - minP) > profit {
+			profit = price - minP
+		}
 	}
 
-	return maxProfit
+	return profit
 }
