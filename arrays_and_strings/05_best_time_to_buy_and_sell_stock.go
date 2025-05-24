@@ -1,17 +1,17 @@
 package arrays_and_strings
 
-import "slices"
+import (
+	"math"
+)
 
 func maxProfit(prices []int) int {
-	var profit int
-	var dayProfit int
+	minPrice := math.MaxInt32
+	maxProfit := 0
 
-	for day, price := range prices {
-		dayProfit = slices.Max(prices[day:]) - price
-		if profit < dayProfit {
-			profit = dayProfit
-		}
+	for _, currentPrice := range prices {
+		minPrice = min(currentPrice, minPrice)
+		maxProfit = max(maxProfit, currentPrice-minPrice)
 	}
 
-	return profit
+	return maxProfit
 }
