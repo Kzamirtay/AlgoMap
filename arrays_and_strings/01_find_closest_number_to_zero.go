@@ -1,18 +1,13 @@
 package arrays_and_strings
 
 func findClosestNumber(nums []int) int {
-	numsLen := len(nums) - 1
 	answer := nums[0]
 
 	for index, num := range nums {
-		if index != numsLen && abs(answer) > abs(nums[index+1]) {
+		if index != len(nums)-1 && abs(answer) > abs(nums[index+1]) {
 			answer = nums[index+1]
-		}
-
-		if abs(num) == abs(answer) {
-			if num > answer {
-				answer = num
-			}
+		} else if abs(num) == abs(answer) && num > answer {
+			answer = num
 		}
 	}
 
