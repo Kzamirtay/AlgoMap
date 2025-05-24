@@ -1,39 +1,27 @@
 package arrays_and_strings
 
+import "strings"
+
 func mergeAlternately(word1 string, word2 string) string {
-	answer := ""
+	res := &strings.Builder{}
+	i, j := 0, 0
 
-	lenWord1 := len(word1)
-	lenWord2 := len(word2)
-
-	if lenWord1 != lenWord2 {
-		var maxWord string
-		var minWord string
-
-		if lenWord1 > lenWord2 {
-			maxWord = word1
-			minWord = word2
-		} else {
-			maxWord = word2
-			minWord = word1
-		}
-
-		for i, letter := range word1 {
-			answer += string(letter)
-			answer += string(word2[i])
-
-			if len(minWord)-1 == i {
-				break
-			}
-		}
-
-		answer += maxWord[len(minWord):]
-	} else {
-		for i, letter := range word1 {
-			answer += string(letter)
-			answer += string(word2[i])
-		}
+	for i < len(word1) && j < len(word2) {
+		res.WriteString(string(word1[i]))
+		res.WriteString(string(word2[j]))
+		i++
+		j++
 	}
 
-	return answer
+	for i < len(word1) {
+		res.WriteString(string(word1[i]))
+		i++
+	}
+
+	for j < len(word2) {
+		res.WriteString(string(word2[j]))
+		j++
+	}
+
+	return res.String()
 }
