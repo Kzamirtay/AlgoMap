@@ -1,11 +1,13 @@
 package arrays_and_strings
 
+import "strings"
+
 func longestCommonPrefix(strs []string) string {
 	if len(strs) == 1 {
 		return strs[0]
 	}
 
-	answer := ""
+	answer := &strings.Builder{}
 	isset := false
 	firstWord := strs[0]
 	otherWords := strs[1:]
@@ -13,19 +15,18 @@ func longestCommonPrefix(strs []string) string {
 	for index, letter := range firstWord {
 		for _, word := range otherWords {
 			isset = false
-
-			if len(word) > index && int32(word[index]) == letter {
+			if len(word) > index && rune(word[index]) == letter {
 				isset = true
 			} else {
 				break
 			}
 		}
 		if isset {
-			answer += string(letter)
+			answer.WriteString(string(letter))
 		} else {
 			break
 		}
 	}
 
-	return answer
+	return answer.String()
 }
