@@ -1,16 +1,13 @@
 package hashmaps_and_sets
 
-import "sort"
-
 func containsDuplicate(nums []int) bool {
-	var lst = len(nums) - 1
+	nM := make(map[int]bool, len(nums))
 
-	sort.Ints(nums)
-
-	for i, num := range nums {
-		if i != lst && num == nums[i+1] {
+	for _, n := range nums {
+		if nM[n] {
 			return true
 		}
+		nM[n] = true
 	}
 
 	return false
